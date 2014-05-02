@@ -70,6 +70,10 @@ class ContextObject
         $keyVals = explode("&", $kev);
         foreach($keyVals as $keyVal)
         {
+            if (strpos($keyVal, '=') === FALSE)
+            {
+                continue;
+            }
             list($key,$val) = explode("=", $keyVal);
             if(isset($ary[$key]))
             {
