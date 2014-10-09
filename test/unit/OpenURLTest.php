@@ -1,5 +1,7 @@
 <?php
-
+$root = dirname(dirname(__DIR__));
+require_once $root . '/src/OpenURL/ContextObject.php';
+require_once $root . '/src/OpenURL/Entity.php';
 
 class OpenURLTest extends PHPUnit_Framework_TestCase {
     public function testLoadKev() {
