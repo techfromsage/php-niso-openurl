@@ -35,4 +35,52 @@ class OpenURLTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("info:sid/ebookco.com:bookreader", $ctx->getReferrer()->getIdentifier());
     }
 
+    public function testEntityUnsetForAllValues()
+    {
+        $entity = new \OpenURL\Entity();
+        $entity->setValue('key1', 'val1');
+        $entity->setValue('key2', 'val2');
+
+        $entity->unsetValue('key2');
+
+        $key2Values = $entity->getValue('key2');
+        $this->assertNull($key2Values);
+        $this->assertEquals('val1', $entity->getValue('key1'));
+        $this->assertEquals(array('key1'=>'val1'), $entity->getValues());
+    }
+
+    public function testEntityUnsetValueForSingleValue()
+    {
+        $entity = new \OpenURL\Entity();
+        $entity->setValue('key1', array('val1a', 'val1b'));
+        $entity->setValue('key2', 'val2');
+
+        $entity->unsetValue('key1', 'val1a');
+
+        $this->assertEquals(array('key1'=>array('val1b'), 'key2'=>'val2'), $entity->getValues());
+    }
+
+    public function testEntityUnsetValueWithNonExistentValue()
+    {
+        $entity = new \OpenURL\Entity();
+        $entity->setValue('key1', array('val1a', 'val1b'));
+        $entity->setValue('key2', 'val2');
+
+        $entity->unsetValue('key1', 'foo');
+
+        $this->assertEquals(array('key1'=>array('val1a', 'val1b'), 'key2'=>'val2'), $entity->getValues());
+    }
+
+    public function testEntityUnsetValueWithNonExistentKey()
+    {
+        $entity = new \OpenURL\Entity();
+        $entity->setValue('key1', 'val1');
+        $entity->setValue('key2', 'val2');
+        $entity->unsetValue('keyFoo');
+
+        $this->assertEquals(array('key1'=>'val1', 'key2'=>'val2'), $entity->getValues());
+    }
+
+
+
 }
