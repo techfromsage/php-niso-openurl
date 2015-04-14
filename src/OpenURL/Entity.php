@@ -207,5 +207,37 @@ class Entity
         }
         return(implode("&", $kevs));
     }
+
+    /**
+     * Unsets either a single value or all values from a given key.
+     *
+     * @param string $key The key whose value(s) we want to unset.
+     * @param null $value If specified, only removes the gives value from the key otherwise unsets all values.
+     */
+    public function unsetValue($key, $value=null)
+    {
+        if ($value == null)
+        {
+            if (isset($this->values[$key]))
+            {
+                unset($this->values[$key]);
+            }
+        }
+        else
+        {
+            if (isset($this->values[$key]))
+            {
+                $values = $this->values[$key];
+                if (is_array($values))
+                {
+                    unset($values[$value]);
+                }
+                else
+                {
+                    unset($this->values[$key]);
+                }
+            }
+        }
+    }
 }
 ?>

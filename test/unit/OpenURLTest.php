@@ -35,4 +35,15 @@ class OpenURLTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("info:sid/ebookco.com:bookreader", $ctx->getReferrer()->getIdentifier());
     }
 
+    public function testEntityUnsetForAllValues()
+    {
+        $entity = new \OpenURL\Entity();
+        $entity->setValue('key1', 'val1');
+        $entity->setValue('key2', 'val2');
+        $entity->unsetValue('key2');
+
+        $values = $entity->getValue('key2');
+        $this->assertNull($values);
+    }
+
 }
