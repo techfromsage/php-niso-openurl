@@ -230,7 +230,14 @@ class Entity
                 $values = $this->values[$key];
                 if (is_array($values))
                 {
-                    unset($values[$value]);
+                    $valueKey = array_search($value, $values);
+                    if ($valueKey !== FALSE)
+                    {
+                        unset($this->values[$key][$valueKey]);
+
+                        // Reindex the array to remove the empty entry...
+                        $this->values[$key] = array_values($this->values[$key]);
+                    }
                 }
                 else
                 {
