@@ -9,4 +9,4 @@ install:
   - composer install
   - composer dumpautoload
 
-script: phpunit ./test/unit
+script: ./vendor/bin/phpunit ./test/unit
