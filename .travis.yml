@@ -7,5 +7,6 @@ php:
 
 install:
   - composer install
+  - composer dumpautoload
 
 script: phpunit ./test/unit
